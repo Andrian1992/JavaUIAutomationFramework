@@ -2,10 +2,7 @@ package com.opencart;
 
 import com.opencart.managers.DriverManager;
 import com.opencart.managers.RandomDataGenerator;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.WindowType;
+import org.openqa.selenium.*;
 
 public class TestRunner {
     public static void main(String[] args) throws InterruptedException {
@@ -15,13 +12,13 @@ public class TestRunner {
 
         // new window code
         driver.switchTo().newWindow(WindowType.TAB);
-        driver.get("https://opencart.antropy.co.uk/");
+        driver.get("https://www.andreisecuqa.host/");
         Thread.sleep(2000);
 
-        WebElement myAccountIcon = driver.findElement(By.xpath("//i[@class='fa fa-user']"));
+        WebElement myAccountIcon = driver.findElement(By.xpath("//i[@class='fa-solid fa-user']"));
         myAccountIcon.click();
 
-        WebElement registerOption = driver.findElement(By.xpath("//ul[@class='dropdown-menu dropdown-menu-right']//a[normalize-space()='Register']"));
+        WebElement registerOption = driver.findElement(By.xpath("//a[normalize-space()='Register']"));
         registerOption.click();
 
         System.out.println(driver.getCurrentUrl());
@@ -42,27 +39,28 @@ public class TestRunner {
         emailInput.sendKeys(randomEmail);
         System.out.println(randomEmail);
 
-        WebElement phoneInput = driver.findElement(By.cssSelector("#input-telephone"));
-        String randomPhoneNumber = RandomDataGenerator.generatePhoneNumber();
-        phoneInput.sendKeys(randomPhoneNumber);
-        System.out.println(randomPhoneNumber);
-
+//        WebElement phoneInput = driver.findElement(By.cssSelector("#input-telephone"));
+//        String randomPhoneNumber = RandomDataGenerator.generatePhoneNumber();
+//        phoneInput.sendKeys(randomPhoneNumber);
+//        System.out.println(randomPhoneNumber);
 
         WebElement passwordInput = driver.findElement(By.cssSelector("#input-password"));
         String password = RandomDataGenerator.generatePassword();
         passwordInput.sendKeys(password);
 
-        WebElement confirmPassword = driver.findElement(By.cssSelector("#input-confirm"));
-        confirmPassword.sendKeys(password);
+//        WebElement confirmPassword = driver.findElement(By.cssSelector("#input-confirm"));
+//        confirmPassword.sendKeys(password);
         System.out.println(password);
-        WebElement termsAndConditionsCheckbox = driver.findElement(By.xpath("//input[@name='agree']"));
 
-        termsAndConditionsCheckbox.click();
 
-        WebElement registerButton = driver.findElement(By.xpath("//input[@value='Continue']"));
+        WebElement termsAndConditionsToggleBar = driver.findElement(By.cssSelector("input[value='1'][name='agree']"));
 
+        JavascriptExecutor je = (JavascriptExecutor) driver;
+        je.executeScript("arguments[0].scrollIntoView(true);" , termsAndConditionsToggleBar);
+        Thread.sleep(1000);
+        termsAndConditionsToggleBar.click();
+        WebElement registerButton = driver.findElement(By.xpath("//button[normalize-space()='Continue']"));
         registerButton.click();
-
         Thread.sleep(5000);
 
 
