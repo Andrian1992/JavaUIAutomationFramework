@@ -26,13 +26,6 @@ public class RegisterPageSteps {
         System.out.println("The register form is populated with valid random data");
     }
 
-    @And("Continue button is clicked")
-    public void continueButtonIsClicked() throws InterruptedException {
-        registerPage.clickTheContinueBtn();
-        Thread.sleep(1000);
-        System.out.println("The continue button ha been clicked");
-    }
-
     @When("the register form is populated with the following data:")
     public void theRegisterFormIsPopulatedWithTheFollowingData(Map<String, String> formDataMap) {
         String firstNameValue = formDataMap.get("firstName");
